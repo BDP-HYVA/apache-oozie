@@ -1,0 +1,44 @@
+  <workflow-app name="[WF-DEF-NAME]" xmlns="uri:oozie:workflow:0.5">
+  ...
+    <action name="[ACTION-NODE-NAME]">
+        <map-reduce>
+            <job-tracker>[ResourceManagerHostAddress:Port]</job-tracker>
+            <name-node>[NameNodeHostAddress:Port]</name-node>
+
+            <prepare>
+              <delete path="[OUTPUT_DIR]"/>
+            </prepare>
+
+            <!-- 스트리밍인 경우에만 streaming 정의를 넣어 줍니다. -->
+            <streaming>
+              <mapper>[MAPPER]</mapper>
+              <reducer>[REDUCER]</reducer>
+            </streaming>
+
+            <configuration>
+                <property>
+                    <name>mapred.mapper.new-api</name>
+                    <value>true</value>
+                </property>
+                <property>
+                    <name>mapred.reducer.new-api</name>
+                    <value>true</value>
+                </property>
+                <property>
+                    <name>[PROPERTY-NAME]</name>
+                    <value>[PROPERTY-VALUE]</value>
+                </property>
+                ...
+            </configuration>
+            ...
+            <!-- Distributed Cache를 사용하는 경우 -->
+            <!-- 상대 경로인 경우, job properties의 application path를 기준으로 함 -->
+            <file>[FILE-PATH]</file>
+            <archive>[FILE-PATH]</archive>
+            ...
+        </map-reduce>
+        <ok to="[END-NODE-NAME]"/>
+        <error to="[ERROR-NODE-NAME]"/>
+    </action>
+    ...
+    </workflow-app>
