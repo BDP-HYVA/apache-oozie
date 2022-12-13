@@ -1,0 +1,19 @@
+# [ACTION-NODE-NAME], [NEXT-NODE-NAME], [END-NODE-NAME], [ERROR-NODE-NAME] 을 원하는 작업에 맞게 명시.
+
+<workflow-app name="[WF-DEF-NAME]" xmlns="uri:oozie:workflow:0.5">
+  <start to="[ACTION-NODE-NAME]"/>
+
+  <action name="[ACTION-NODE-NAME]">
+    ...
+    <ok to="[END-NODE-NAME]">
+    <error to="[ERROR-NODE-NAME]">
+  </action>
+
+  ...
+
+  <kill name="[ERROR-NODE-NAME]">
+    <message>[MESSAGE-TO-LOG]</message>
+  </kill>
+
+  <end name="[END-NODE-NAME]"/>
+</workflow-app>
